@@ -32,23 +32,29 @@ export default function LoginPage() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
+        padding: 16,
+        boxSizing: 'border-box',
         background: 'linear-gradient(135deg, #1677ff 0%, #0b2545 100%)',
       }}
     >
       <div
         style={{
-          width: 400,
-          padding: '32px 24px',
+          width: '100%',
+          maxWidth: 400,
+          padding: 24,
+          boxSizing: 'border-box',
           background: '#fff',
           borderRadius: 8,
           boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
         }}
       >
         <LoginForm
-          logo={<img alt="AdminBase" src="/logo.svg" style={{ height: 48 }} />}
+          logo={<img alt="AdminBase" src="/logo.svg" style={{ width: 44, height: 44 }} />}
           title="AdminBase"
           subTitle="通用后台管理基座"
           loading={loading}
+          containerStyle={{ padding: 0 }}
+          contentStyle={{ minWidth: 0 }}
           onFinish={async (values: any) => {
             await handleSubmit(values);
           }}
