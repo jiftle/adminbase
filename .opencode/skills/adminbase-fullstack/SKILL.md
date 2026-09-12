@@ -71,7 +71,7 @@ description: >
 
 ## 项目坐标速查
 
-- 后端 module：`github.com/jiftle/adminbase/server`（**不是 `.../backend`**）。
+- 后端 module：`github.com/jiftle/adminbase`。
 - 后端入口：`backend/main.go` → `internal/cmd`（先建库、再注册路由）。
 - 路由**不写在 controller**，写在 API 结构体 `g.Meta` 的 `path`/`method`，靠 `cmd.go` 的 `group.Bind(...)` 生效。
 - 表结构：`backend/manifest/sql/init.sql`；运行库 `backend/data/adminbase.db`（gitignored）。
