@@ -5,12 +5,12 @@ SHELL := /bin/bash
 
 BACKEND_DIR   := backend
 FRONTEND_DIR  := frontend
-BACKEND_PORT  ?= 8000
-FRONTEND_PORT ?= 8001
+BACKEND_PORT  ?= 8080
+FRONTEND_PORT ?= 5173
 
 .DEFAULT_GOAL := help
 
-.PHONY: help dev dev-backend dev-frontend install build backend frontend db-init db-reset tidy clean
+.PHONY: help dev dev-backend dev-frontend install build backend frontend db-init db-reset tidy package clean
 
 help:
 	@echo "AdminBase 常用命令："
@@ -22,6 +22,7 @@ help:
 	@echo "  make db-init      初始化 SQLite 数据库"
 	@echo "  make db-reset     重置数据库"
 	@echo "  make tidy         整理 Go 依赖"
+	@echo "  make package      打包 Linux 安装包（installer/）"
 	@echo "  make clean        清理构建产物与运行数据"
 	@echo ""
 	@echo "提示：make dev 为前台运行，Ctrl+C 可同时退出前后端。"
@@ -60,6 +61,9 @@ db-reset:
 
 tidy:
 	$(MAKE) -C $(BACKEND_DIR) tidy
+
+package:
+	$(MAKE) -C installer package
 
 clean:
 	$(MAKE) -C $(BACKEND_DIR) clean

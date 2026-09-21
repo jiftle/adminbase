@@ -1,2 +1,5 @@
 .DS_Store
 *.log
+
+# 安装包组装产物与压缩包
+installer/build/

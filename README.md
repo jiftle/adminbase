@@ -2,8 +2,8 @@
 
 基于 **GoFrame v2 + Vite/React + Ant Design + SQLite** 的前后端分离后台管理系统脚手架，内置 RBAC 权限、部门、字典、参数配置、登录/操作日志等基础模块，开箱即用。
 
-- 后端：http://127.0.0.1:8000
-- 前端（dev）：http://127.0.0.1:8001（`/api` 代理到后端）
+- 后端：http://127.0.0.1:8080
+- 前端（dev）：http://127.0.0.1:5173（`/api` 代理到后端）
 - 默认账号：`admin` / `123456`
 
 ---
@@ -52,12 +52,12 @@
 
 ```
 ┌──────────────────────────────────┐         ┌──────────────────────────────────────┐
-│  浏览器 (React + Vite + antd)     │  HTTP   │  后端 (GoFrame :8000)                 │
+│  浏览器 (React + Vite + antd)     │  HTTP   │  后端 (GoFrame :8080)                 │
 │  pages → hooks/hooks → api/client │ ──────► │  /api/v1/**                           │
 │  router / stores / access        │ ◄────── │  统一响应 {code,message,data}          │
 └──────────────────────────────────┘         └──────────────────────────────────────┘
-          │ dev: Vite proxy /api → :8000
-          │ prod: nginx  location /api/ → :8000
+          │ dev: Vite proxy /api → :8080
+          │ prod: nginx  location /api/ → :8080
 ```
 
 前后端**完全分离**：前端只通过 HTTP 调 `/api/v1`，不共享代码；开发用 Vite 代理、生产用 nginx 反代解决同源问题。
@@ -131,7 +131,7 @@ src/
 | 环节 | 开发环境 | 生产环境 |
 | --- | --- | --- |
 | 前端 baseURL | `/api/v1`（`src/api/client.ts`，由 `VITE_API_BASE` 注入） | 同左 |
-| 转发 | Vite dev proxy：`/api` → `http://127.0.0.1:8000`（`vite.config.ts`） | nginx：`location /api/` → `http://127.0.0.1:8000` |
+| 转发 | Vite dev proxy：`/api` → `http://127.0.0.1:8080`（`vite.config.ts`） | nginx：`location /api/` → `http://127.0.0.1:8080` |
 | 后端挂载 | `s.Group("/api/v1", ...)`（`internal/cmd/cmd.go`） | 同左 |
 
 浏览器最终访问 `/api/v1/system/user/list`，由代理转发到后端同名路径。
@@ -236,7 +236,7 @@ adminbase/
 ### 1. 一键启动
 
 ```bash
-make dev          # 后端 :8000（热加载）+ 前端 :8001（HMR），Ctrl+C 同时退出
+make dev          # 后端 :8080（热加载）+ 前端 :5173（HMR），Ctrl+C 同时退出
 ```
 
 ### 2. 分开启动
@@ -250,11 +250,11 @@ go run .          # 首次启动自动建库并导入种子数据
 # 前端
 cd frontend
 pnpm install
-pnpm dev          # Vite 默认 :8001，/api 代理到后端 :8000（可用 VITE_PORT 覆盖）
+pnpm dev          # Vite 默认 :5173，/api 代理到后端 :8080（可用 VITE_PORT 覆盖）
 ```
 
-- Swagger：http://127.0.0.1:8000/swagger
-- OpenAPI：http://127.0.0.1:8000/api.json
+- Swagger：http://127.0.0.1:8080/swagger
+- OpenAPI：http://127.0.0.1:8080/api.json
 
 ### 3. 默认账号
 
@@ -313,7 +313,7 @@ gf gen dao        # 依据 hack/config.yaml 重新生成 dao/entity/do
 
 | 配置 | 说明 |
 | --- | --- |
-| `server.address` | 监听地址，默认 `:8000` |
+| `server.address` | 监听地址，默认 `:8080` |
 | `database.default.link` | `sqlite::@file(./data/adminbase.db)` |
 | `database.default.debug` | 是否打印 SQL 调试日志 |
 | `jwt.secret` | JWT 密钥，**生产环境务必修改**，也可用环境变量 `ADMINBASE_JWT_SECRET` 覆盖 |
@@ -326,8 +326,8 @@ gf gen dao        # 依据 hack/config.yaml 重新生成 dao/entity/do
 | 变量 | 说明 |
 | --- | --- |
 | `VITE_API_BASE` | 接口前缀，默认 `/api/v1` |
-| `VITE_PORT` | 开发端口，默认 `8001` |
-| `VITE_PROXY_TARGET` | 开发代理目标，默认 `http://127.0.0.1:8000` |
+| `VITE_PORT` | 开发端口，默认 `5173` |
+| `VITE_PROXY_TARGET` | 开发代理目标，默认 `http://127.0.0.1:8080` |
 
 ---
 
@@ -350,7 +350,7 @@ server {
     }
 
     location /api/ {
-        proxy_pass http://127.0.0.1:8000;
+        proxy_pass http://127.0.0.1:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -378,4 +378,4 @@ server {
 
 - **pnpm 提示 `Ignored build scripts`**：执行 `pnpm approve-builds --all` 允许 esbuild 等构建脚本。
 - **React 19 `useRef` 需初值**：`useRef<ActionType | undefined>(undefined)`。
-- **开发端口被占用**：Vite 会自动顺延端口，可用 `VITE_PORT=8002 pnpm dev` 指定。
+- **开发端口被占用**：Vite 会自动顺延端口，可用 `VITE_PORT=5174 pnpm dev` 指定。

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --port 8001",
+    "preview": "vite preview --port 5173",
     "tsc": "tsc --noEmit"
   },
   "browserslist": [

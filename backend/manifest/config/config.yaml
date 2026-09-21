@@ -1,7 +1,7 @@
 # AdminBase 后端配置
 
 server:
-  address: ":8000"
+  address: ":8080"
   serverRoot: "resource/public"
   dumpRouterMap: true
   routeOverWrite: true

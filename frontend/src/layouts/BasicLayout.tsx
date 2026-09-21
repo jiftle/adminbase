@@ -116,7 +116,7 @@ export default function BasicLayout() {
             isDev ? (
               <a
                 key="api"
-                href="http://127.0.0.1:8000/swagger"
+                href="http://127.0.0.1:8080/swagger"
                 target="_blank"
                 rel="noreferrer"
               >

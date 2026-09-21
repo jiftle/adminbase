@@ -13,7 +13,7 @@
 
 1. `docs/接口文档.md`（若项目维护）
 2. `backend/api/v1/**` 的 `g.Meta` 与 Req/Res 结构体（**真实契约**）
-3. Swagger：`http://127.0.0.1:8000/swagger`
+3. Swagger：`http://127.0.0.1:8080/swagger`
 
 **每次收到新需求或需求变更，都重新读取接口，因为后端可能已改。**
 

@@ -50,7 +50,7 @@ description: >
 规则：
 
 1. 文件存在就读；不存在就向用户确认路径，或直接基于代码与需求推进。
-2. 接口契约优先以代码为准：`backend/api/v1/**` 的 `g.Meta`（`path/method/tags/summary`）+ Swagger（`http://127.0.0.1:8000/swagger`）即真实契约。
+2. 接口契约优先以代码为准：`backend/api/v1/**` 的 `g.Meta`（`path/method/tags/summary`）+ Swagger（`http://127.0.0.1:8080/swagger`）即真实契约。
 3. 若项目正在维护 `docs/接口文档.md`，后端实现后**建议**同步；未维护时不阻塞流程，但保持 `g.Meta` 描述准确。
 
 ---
@@ -83,7 +83,7 @@ description: >
 
 - 后端：`cd backend && go vet ./... && go build ./...`
 - 前端：`cd frontend && pnpm tsc && pnpm build`（`build` 已含 `tsc --noEmit`）
-- 一键起：根目录 `make dev`（后端 :8000、前端 :8001）；默认账号 `admin` / `123456`。
+- 一键起：根目录 `make dev`（后端 :8080、前端 :5173）；默认账号 `admin` / `123456`。
 - 前端无 ESLint/Prettier，类型正确性由 `tsc` 保证。
 
 ## 界面验证协议

@@ -11,7 +11,7 @@ AdminBase：GoFrame v2 后端 + Vite/React 前端的后台管理基座，前后�
 
 ## 常用命令
 
-- 一键起前后端：根目录 `make dev`（后端 :8000、前端 :8001；`gf` 已装则热重载，否则 `go run .`）。
+- 一键起前后端：根目录 `make dev`（后端 :8080、前端 :5173；`gf` 已装则热重载，否则 `go run .`）。
 - 后端验证：`cd backend && go vet ./... && go build ./...`（无测试框架、无 golangci）。
 - 前端验证：`cd frontend && pnpm tsc && pnpm build`（`build` 已含 `tsc --noEmit`）。
 - 依赖安装：`make install`；重置数据库：`make db-reset`（删 `data/adminbase.db` 后按 init.sql 重建）。
@@ -32,7 +32,7 @@ AdminBase：GoFrame v2 后端 + Vite/React 前端的后台管理基座，前后�
 - 新增页面：`src/pages/...` → `src/router/index.tsx` 注册（页面级权限用 `<Permission perm="...">`）→ 需要侧边栏则加 `src/config/menu.tsx`。
 - 提示/弹框用 `@/utils/antdApp` 的 `message`/`modal`（由 `AntdAppBridge` 绑定 antd `App` 上下文）；不要用 antd 静态 `message`/`Modal.confirm`，否则暗色主题下样式错乱。
 - 主题相关颜色用 antd `theme.useToken()` 取，别写死 `rgba(0,0,0,...)`（暗色下不可读）。
-- 端口/代理看 `vite.config.ts` 与 `.env.development`：`VITE_API_BASE`、`VITE_PORT`（默认 8001）、`VITE_PROXY_TARGET`。
+- 端口/代理看 `vite.config.ts` 与 `.env.development`：`VITE_API_BASE`、`VITE_PORT`（默认 5173）、`VITE_PROXY_TARGET`（默认 http://127.0.0.1:8080）。
 
 ## 数据库与代码生成
 

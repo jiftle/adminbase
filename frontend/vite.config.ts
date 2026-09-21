@@ -23,13 +23,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      port: Number(process.env.VITE_PORT || env.VITE_PORT) || 8001,
+      port: Number(process.env.VITE_PORT || env.VITE_PORT) || 5173,
       proxy: {
         '/api': {
           target:
             process.env.VITE_PROXY_TARGET ||
             env.VITE_PROXY_TARGET ||
-            'http://127.0.0.1:8000',
+            'http://127.0.0.1:8080',
           changeOrigin: true,
         },
       },
